@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF7F2">
+  <meta name="description" content="Hilopek Salon & Spa — luxury, unique, quality beauty care in Uyo, Akwa Ibom.">
+  <title>Hilopek Salon & Spa | Uyo, Akwa Ibom</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF7F2',
+            charcoal: '#1A1A1A',
+            gold: '#D4AF37',
+            ink: '#23201C'
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif']
+          },
+          boxShadow: {
+            soft: '0 20px 60px rgba(26,26,26,.10)',
+            gold: '0 12px 35px rgba(212,175,55,.18)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, sans-serif; background:#FAF7F2; color:#1A1A1A; }
+    .display { font-family:'Playfair Display', Georgia, serif; }
+    .glass { background:rgba(250,247,242,.78); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-bottom:1px solid rgba(26,26,26,.08); }
+    .hero-overlay { background:linear-gradient(90deg, rgba(12,12,12,.76) 0%, rgba(12,12,12,.48) 48%, rgba(12,12,12,.18) 100%); }
+    .gold-line { background:linear-gradient(90deg, transparent, #D4AF37, transparent); }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity:1; transform:none; }
+    .service-card:hover { transform:translateY(-6px); box-shadow:0 25px 60px rgba(26,26,26,.12); }
+    .service-card { transition:transform .35s ease, box-shadow .35s ease; }
+    .gallery-img { transition:transform .55s ease, filter .55s ease; }
+    .gallery-item:hover .gallery-img { transform:scale(1.05); filter:saturate(1.06); }
+    .drawer { transform:translateX(100%); transition:transform .35s ease; }
+    .drawer.open { transform:translateX(0); }
+    .drawer-backdrop { opacity:0; pointer-events:none; transition:opacity .3s ease; }
+    .drawer-backdrop.open { opacity:1; pointer-events:auto; }
+    .logo-mark { background:#000; border-radius:9999px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+
+<style>
+  #bookingModal { display:none; }
+  #bookingModal.open { display:flex; }
+  .modal-panel { animation: modalIn .22s ease-out both; }
+  @keyframes modalIn { from { opacity:0; transform:translateY(18px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .modal-panel { animation:none; } }
+</style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <header class="fixed top-0 left-0 right-0 z-50 glass">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8">
+      <a href="#home" class="flex items-center gap-3 min-w-0" aria-label="Hilopek Salon & Spa home">
+        <span class="logo-mark flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden ring-1 ring-black/10">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCACgAKADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8j6Ccen4mgAk8Y9snqfSuJ+IfxYj8Ozvo2hok10o/eyPysZ9Mdz+PFdbairmaTbO2II7E49BQAT/CfyrwLUPGXinUpjPd69csx9JSP5VXGva3/wBBi7/8CG/xrL2vkVys+hcH0NGD6Gvnr+39b/6DF3/4EN/jR/b+t/8AQYu//Ahv8aPai5WfQuD6GjB9DXz1/b+t/wDQYu//AAIb/Gj+39b/AOgxd/8AgQ3+NHtQ5WfQuD6GjB9DXz1/b+t/9Bi7/wDAhv8AGj+39b/6DF3/AOBDf40e1DlZ9C4PoaMH0NfPX9v63/0GLv8A8CG/xo/t/W/+gxd/+BDf40e1DlZ9C4PoaMH0NfPX9v63/wBBi7/8CG/xo/t/W/8AoMXf/gQ3+NHtQ5WfQuD6GjB9DXz1/b+t/wDQYu//AAIb/Gj+39b/AOgxd/8AgQ3+NHtQ5WfQuD6GjB9DXz1/b+t/9Bi7/wDAhv8AGj+39b/6DF3/AOBDf40e1DlZ9C7W/umj2/nx/Ovno69rfbWLv/wIb/GtPQ/iT4v0OdZIdWkmjBG6G4O9WH40/aofKz2Hxdq7aF4avdVT70VudmezEgDHvzXgc88tzK087szuxZ2Y8knvXtXxa/5J/qH/AGy/9HJXibHOB6CpqvUa2EzRRRWQwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPbPi1/wAk+1D6Rf8Ao6OvEz1/CvbPi1/yT7UPpF/6OjrxM9fwrWr8QlsFFFFZDCiiigAooooAME9KAMjilHAyK9X/AGQf2O/jF+3D8X7X4GfAqwsrnxBd2s9xBFqF8tvEUiXc2XbgH0HelKcIRvLYEm3Y8oK4GaMD+9+lepftKfsdftCfsl+MrjwN8e/hjqugXkEgAkurVhDKhOBIkmNrKe2OT6V5ncWnkjO7v/n6fjRSnTrQ5qbTRU4SpytJEBGDxRSvxgenpQUwM5pskSiiigAooooAKKKKAPbPi1/yT7UPpF/6OjrxM9fwr2z4tf8AJPtQ+kX/AKOjrxM9fwrWr8QlsFFFFZDCiil2c4JoAAFI5NKEyM5q1aaPPe4WB9zsQscaqSXYnAAA716np/7Bn7ZGqabFq+mfs1eM57SdPMhuU0Gba6HkMOKyq1qNBXqSS9XYuEJzfuq55GI8jANfd3/BuTd3lt/wVM8DLYAM5tL0MpJA2mPB6HsMn8K+QPHHwI+MPw0GfH3w21vSBjlr/TJI1H1LCv0K/wCDWf4Ga54u/wCCh1x8U5NKkk0nwj4Tu3ursL8sc8+1YUOehYLIR/u152b4qhHJq1XmVrPZm+GpyWIipRP3++PPwK+C37Rfgu4+H3x2+HGmeKtGkUosGpW4dk5PzK3VO2NuP0r8Ov8AguF/wQo+FP7I3wmv/wBrX9mjxXdW3hu31KGC+8KX5En2Yy5w8cuQSvyn5SpPT5q/e92JJwmVJ6gdME8fyr4b/wCDhJLdv+CWXjxp2O43tkIeQMN5h/pmv594F4mzSPESwrm3Ccnp5H1uZYWjHBupY/mEuIkVyY5ARk+1NwGXnvT7gqZJMHI3nkjk1oeDvCHiTx74htPCfhHRrnUNRvpRFaWdpA0kkrnoqqoJJr+mHpG58S9TLKYGc0jKB0NbvibwF4m8HalNofijSrjT7yCTZPa3sRidDjkENjB9utY72rw8OwyVzinG0480WmvIGrNJ6ENFK2cYIpKQgooooA9s+LX/ACT7UPpF/wCjo68TPX8K9s+LX/JPtQ+kX/o6OvEz1/CtavxCWwUUUVkMVFDHk1YEQZggOScCq6gk5BqeIBm2+q1SXXoOKvLU+z/+CMX7Gkf7Sf7R9v448YaOJPCXgrZf6jNcRgxy3AYNBFg+rrk+gHQ54/d/4e+MfEN/4j+0w6pcxoJPk8ltixjJG1QOAuegr87P+CHfxS/Zy0v9iOfwPD480PRfFsXiOefxJa6nfx28tzGwPkuPMIyoTb0zgj3r7v8Agx4q8D67rI07wl4+0bWLmNQ0kWlalFOcDqcIxxX8yeL2J4gq4xqjzRpRW6vY/UeE4ZYsI72c2z6Lv/A3gH4zeGn8NfF7wLpHiWwntzHLba3p0dwrqfUSAj9Kpfszfsefs2/skHXk/Z2+GVh4Yh8TXYudXttPTbG7gELtXogG48Djmui8FKwt0AbOU4JBH866eFdoA747V+YZPn2afU3QlWlJPdXdrHVj8Fh5Ym6ikWCWkyA5wQchegwMlj+XJ+lflf8A8HUPx9sPh9+x/wCF/gTZ3/8Ap/jbXBdyQjlhbW65DEZ4DF+P/rYr9TiUSPYyZLAgEkAHIPB9v8Pz/l0/4LuftLfGz9oj9v3xVH8YPC174cTw1N/Zeh+G7wj/AEW1QbVlAHGZjmUkdS57Yr9T8Lsmjjs9eKf/AC71t6ny+fYlRo+zR8YXEisSV6knIHYV7/8A8Eq/E994T/4KCfCnU9O2iVvGNnF8y5BDSAEflXgQtpJGCBQCx454GTX1F/wRs+Ft58Sf+Ch/w/so7V5E0nUf7UnKj7sdudxb8K/oTOJqhk9ab0tGT/A+WwNOU8ZTglu0ftN+19+xX+zB+19qd4nxn+HiR6tJhI/FemIsWoR8Hgy4yyg4wpB79M1+Tf7fH/BFj4p/sp+EtT+NPw98T23ibwLYEtc3ROy6swf78Y4I/wBoY+lftP4ruWuNZmji37nZstnhSTx+leP/ALfUNve/sB/GWCUK0a+B72XIzlpFThuTxz/Kv5d4E8R8/pcQ08BUlzU6krK/qfrfEHDeBqZXGuopSitT+dB4tqg5/CmVNKQTketQnrX9Z69T8Z2bCiiigD2z4tf8k+1D6Rf+jo68TPX8K9s+LX/JPtQ+kX/o6OvEz1/CtavxCWwUUUVkMACasQb0bcAMqQc+nPf25qBTgE1bsopJLhY1iLtJgIn94ntWkIqW+wNXWm57r+wx+xx8VP2zfiza/DLwI0trYQATa1rDgiOxtwSS27j5j2Gefwr96P2LP2Y/gt+yx4Qt/h18J/DwYhFfUNWvQGuryUcGQv1C53YUGvDf+CYX7NOn/sr/ALG3h63nh2eIfGFpFrWtXhTEoE0YaKL22KQCPXPTNfUnwoXdqPmxsSx6ludxJGT+J7V/K/itxnicyxFTAYZ2hHTTqfq3DGTU6FBYmoulz6Y8C7ZLcM7kDAA3E55xjr0H1NMT44/BKL4vJ8AB8WdCPjV7E3cXhgX6G9aEH7/l5z+HX61+fP8AwWk/4K9t+wd4Fh+A/wADb22k+Jmv2Ae6vwcjRbUjiQekp52nIxgnvX4XeFP2qvjr4W+O1p+0jpXxO1NPGNrqS36aybxkmmmzuJZlPIP3SDwQa6uBvC6tjcmeIxT5XNWX+Z42d8QU1i3GHRn9hTiYMLeRsbpVVWAOPvDk+nr+Ffzkf8F0dS8Wf8FEv+Cjnie6/ZS+FOoeKrXwXpUGlavqnh6wM32ieBAsrvsGPlKlAfRAcmvqHxv/AMHTOk/EL9lVfAPw++DWsw/GPW9I/s8ahC6mxhupUMRmiUAsW5LBefmxzX3H/wAEtP2O4v2Fv2SNH8K6rCj+MfEyDXfGGpqT5k13OPNRS/BPlq+zB+vc19BluG/4hdg6mMxT5pydox8u5501HPasYUlr1P5aNR8O6poOoXWk69p9xaXdnIY7m2niKvEwOMFTz1r9iP8Ag33/AGJNT+GHgPVv2yPHuiy2d5rcDWHhUXEZV/sp4mkAPOGOAOOc5zX2D+15/wAEcv2Mf2pvjzo/7QfivQrnR9YgvUl8SWuirFFa60Ad37+ML1JABIOSCwPUEe0a3pmieGtCsPDHhLR4bDTdOthBY2VsgWOCJQAqKAOgAH4Y+p8DxC8ZcrxeQRw2W6zmrS8vI+l4a4NxVPM/bYjZbHB62E+2SDO4HMgJ6g5FfPX/AAVa8e2Xw3/4J1/EC8u5ij+IIBo9mAQAzSkAr+AyT9K+i7i1e91EQJgszZHmEcY5z+H+Nfkd/wAF4/20dJ+L3jnTv2Z/hhq8V14e8IMZdYv4XDJd6gVYHBXghRuAPPOa+B8Hshq5xxBSxEr2pa/qfS8ZZjHB5S6UVvofnCxA4xge9RU+YkkZ6dqZX9r2sfhIUUUUAe2fFr/kn2ofSL/0dHXiZ6/hXtnxa/5J9qH0i/8AR0deJnr+Fa1fiEtgooorIYo9M9a7X4CeHU8WfGnwj4WvYjJHqXiOytmjB+8GnRSPrzXFooIrtPgX4wtfh18Y/CvjzUkka20fxBZXlwIhltkU6O233wp4qKqnKhNQ3szSi4xqxctro/pG163tNPuYtLt1/d2drHBBH02qqgAY9sV0/wAIZrSxvW1TUyI47G1muZnJ+WOONdzE/wDAQSPpXlnwb/aC+Bn7W+mDxv8AAf4hWOriWJZbnSo5AL22ZhuKNGeTt6ZHpXbTW9/b/CPx3HGhWc+C9U++OR/osvH1/wAa/jPH5LjIcTezxcWuep8rXP2pY7CvJ70n02P52P22vjz4o/aU/ag8Y/F7xpfGe61LWpliJPEcCOVjQewUACvKOHc7Tz2OOpq54nVm8RX+4nIu5OSc/wARqnG4UFGyoI6jqTX9l4OnTo4WnTSskkvlY/FcQ3KtJ9Wz3L/gm94o0zwP+298N/FmrfDifxXBZeKbOZtEtIPMknKzqRtXHJBAOPTP1r+sTxHcfbY4750dDcRIwhkUq8QKjCMD0IHH+cD8oP8Ag2C/4J06JoHge9/b7+JnhqGfVry5ay8DGZci2gCss9wo/vEEKPq3PFfq74jLrHsXLqGJUdwCflwPzPrnPPp/NnjRnGGxuKjhaL1hufc8KYadP3m7HFa6U+bkAdGz39q4fxYclwGBJ611Xjbxd4Q8K3tlp/irxjpmmPqbtHYRX12kTXLqQGC7iMkE4rA8T6Dez2n2y0gaaN2wHjcOD6fdJH61/NOPyPNqdSNX2LcXrfX/ACP1bLsxwN+WVRXR5nqsVtcSTWt6cxSoySIGxvUjBGRyMg4/GvgD/gs7+xL+x18OP2Obn40/Dj4a6b4N8T2+uQx276fI4GoF8iSNt7HdwS2R6Y78fofL4Y1q5v3hXS7g7j/zyP8ATPfH6mvxq/4LyftcQ/GD492/7PPgjWxceHPAcHlXXkShop9RYDzH4PO37o/Gv3fwWy/P45zemuSh9q58rx1iMBPLt02fn3cEHBAxyfl9Pb2qKpLhizZYHJJJyajr+t3o9z8W06BRRRSA9s+LX/JPtQ+kX/o6OvEz1/CvbPi1/wAk+1D6Rf8Ao6OvEz1/CtavxCWwUUUVkMUHHGKkS6kT7rEcYGDUVFFw6WOp+HXxT+IPwr8RxeKvh9411HQ9QhYNFeWFy0TnGMAlSMjjoa/Sn9jL/g4a1Twf4X1LwP8Atk/Dk+KIL/RLqyt9d0NUt7sb4WQCVWyJBkryMdDnrX5XqzNwXPHTmnh2wQxJHfmuDF5ZgcZJOtBNp321+86aWLr0Y2jLQ1PGOoWer+J9Q1fTIPJt7q8llghLAlEZyVBx3x1qvodk2q38OnQkm4uJ0jtwO7McY/Wqbuz8NIT9TW18Pr2DSvFulajc8QQ6nBLO5QkqqyA8fhmu6bhCm1FbIwT5qib7n9d37Dvwo0b4GfsafDL4UaDZGC30jwjZhwx+Z5HjEjk/8Cc12ep2T3t7HDG5BLYVh2PUn8s1m/s9+PvB3xQ+A3hPxZ4F8R2WrWMvhyyT7VY3SyIjrCoZG2ElWHcECr+vT3FnDeXccRQw2U8kWGByyxsR07V/HPEuGxGI4nnCvBq7Wvqz9MyydKGGv5H83P8AwXm/bX179oj9uTVfDvhHxXcxeHPAcx0nSYbaYqoniI86XAx8xkyM/wCzXzZ4J/bs/bE+HSxxeEf2nPHFnDCCI7WLxLc+SB/1zL7f0rlf2i9Ru9Z+PnjbVrxyZrnxZqMku7szXMhI/M4/CuIAIY8kfjX9Z5dk+AwuVUaHs01GK3S7H57XxFdYiTUmte59Aa9/wVD/AG9PEOnPpWq/tR+K5IHXayxak0bY/wB5MH9a8H1LWdR1a+m1PUb+a4uLiVpJ5ppCzO5OSxJ5JJPeq7gbelMrto4XDYZWpQUfRJHPOtVqq05N/MVn3duaSiitzMKKKKAPbPi1/wAk+1D6Rf8Ao6OvEz1/CvbPi1/yT7UPpF/6OjrxM9fwrWr8QlsFFFFZDCiiigApQ5AwKSigBSwP8NTW9zLBGVjbGTnkA+vr9agpQ+BjFF2tg3Pev2L/APgov+1l+wt4p/t/9n34p3ul28sqte6RI5ks7rrw8R+Xuee2Tiv2f/Yc/wCDlH9mH4+2Fn4P/a+09Ph5rzQ+Tc69uaXTrjggk9XjJ445HPav56El2ncAQR0IqS2uCjlhzn2rxs04ZyzN6kZVILn6M66OMr0pfFod1+0xd+GtS+P/AI41fwjq0N3plz4w1OXTrqLOy4t2u5WjkXIzgqQa4BmbO4HqfSppZWlGWPBP3fQen61C6jqBj2r2IPkpqHbQ5pu8mxNxIwaSiimSFFFFABRRRQB7Z8Wzj4e6gf8Arl/6OSvFGGDivcPijaSXngHUYYhlhGj4x2V1Y/oDXiD9c+ta1fiEthtFFFZDCiiigAooooAKKKKAFVtoNOSbbnK9aZRTuxNXHb+Mbf1pC+RjFJRSGFFFFABRRRQAUUUUAf/Z" alt="Hilopek black and gold emblem" class="h-full w-full object-cover">
+        </span>
+        <span class="min-w-0">
+          <span class="block truncate text-[15px] font-semibold tracking-wide">Hilopek</span>
+          <span class="block text-[9px] font-medium uppercase tracking-[.28em] text-black/55">Salon & Spa</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+        <a href="#about" class="text-sm font-medium text-black/70 transition hover:text-black">About</a>
+        <a href="#services" class="text-sm font-medium text-black/70 transition hover:text-black">Services</a>
+        <a href="#gallery" class="text-sm font-medium text-black/70 transition hover:text-black">Gallery</a>
+        <a href="#contact" class="text-sm font-medium text-black/70 transition hover:text-black">Contact</a>
+        <a href="#booking" class="booking-trigger rounded-full bg-charcoal px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-black">Book Appointment</a>
+      </nav>
+
+      <button id="menuBtn" class="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/60 md:hidden" aria-label="Open menu" aria-expanded="false">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="drawerBackdrop" class="drawer-backdrop fixed inset-0 z-[60] bg-black/40"></div>
+  <aside id="drawer" class="drawer fixed right-0 top-0 z-[70] flex h-full w-[86%] max-w-sm flex-col bg-cream p-6 shadow-2xl" aria-label="Mobile menu">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="logo-mark flex h-11 w-11 items-center justify-center overflow-hidden">
+          <img src="data:image/jpeg;base64,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" alt="" class="h-full w-full object-cover">
+        </span>
+        <div>
+          <div class="font-semibold">Hilopek</div>
+          <div class="text-[9px] uppercase tracking-[.28em] text-black/50">Salon & Spa</div>
+        </div>
+      </div>
+      <button id="closeMenu" class="flex h-10 w-10 items-center justify-center rounded-full border border-black/10" aria-label="Close menu">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="mt-10 flex flex-col gap-2">
+      <a href="#about" class="mobile-link rounded-2xl px-4 py-4 text-lg hover:bg-black/5">About</a>
+      <a href="#services" class="mobile-link rounded-2xl px-4 py-4 text-lg hover:bg-black/5">Services</a>
+      <a href="#gallery" class="mobile-link rounded-2xl px-4 py-4 text-lg hover:bg-black/5">Gallery</a>
+      <a href="#contact" class="mobile-link rounded-2xl px-4 py-4 text-lg hover:bg-black/5">Contact</a>
+    </div>
+    <div class="mt-auto">
+      <a href="#booking" class="booking-trigger mobile-link block rounded-2xl bg-charcoal px-5 py-4 text-center font-semibold text-white">Book An Appointment</a>
+      <a href="https://wa.me/2348140361380?text=Hello%20Hilopek%20Salon%20%26%20Spa%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" class="mt-3 block rounded-2xl border border-black/10 px-5 py-4 text-center font-semibold">WhatsApp Hilopek</a>
+    </div>
+  </aside>
+
+  <main id="home">
+
+    <section class="relative flex min-h-[92vh] items-end overflow-hidden bg-charcoal pt-28">
+      <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=2200&q=88" alt="Elegant salon interior" class="absolute inset-0 h-full w-full object-cover">
+      <div class="hero-overlay absolute inset-0"></div>
+
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-16 lg:px-8 lg:pb-24">
+        <div class="max-w-3xl reveal">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.18em] text-white backdrop-blur">
+            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+            Premium Salon & Spa in Uyo
+          </div>
+          <h1 class="display text-5xl leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+            Beauty, Care &amp; Confidence — All in One Place.
+          </h1>
+          <p class="mt-6 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
+            Discover a welcoming beauty experience designed around quality, comfort and care.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#booking" class="booking-trigger rounded-full bg-gold px-6 py-4 text-center text-sm font-bold text-charcoal shadow-gold transition hover:-translate-y-1">Book An Appointment</a>
+            <a href="#services" class="rounded-full border border-white/30 bg-white/10 px-6 py-4 text-center text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">Explore Services</a>
+          </div>
+          <div class="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-xs font-medium text-white/65">
+            <span>Luxury • Unique • Quality</span>
+            <span>Unisex Salon & Spa</span>
+            <span>Uyo, Akwa Ibom</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+      <div class="grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="reveal">
+          <div class="text-xs font-bold uppercase tracking-[.24em] text-gold">About Hilopek</div>
+          <h2 class="display mt-4 text-4xl leading-tight sm:text-5xl">A beauty experience built around how you want to feel.</h2>
+          <div class="mt-6 h-px w-24 bg-gold"></div>
+        </div>
+        <div class="reveal lg:pl-8">
+          <p class="text-lg leading-8 text-black/70">
+            Hilopek Salon &amp; Spa is a unisex beauty destination in Uyo created around comfort, care and personal expression. From hair and grooming to nails, makeup, spa treatments and more, the goal is simple: give every client an experience that feels considered from the moment they arrive.
+          </p>
+          <p class="mt-5 leading-7 text-black/60">
+            Hilopek's own brand language centers on <strong class="text-black">Luxury, Unique, Quality</strong>, while its public pages highlight comfort, hospitality and memorable client experiences.
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-3xl border border-black/8 bg-white/65 p-5">
+              <div class="text-2xl font-semibold">01</div>
+              <div class="mt-2 text-sm font-semibold">Comfort first</div>
+            </div>
+            <div class="rounded-3xl border border-black/8 bg-white/65 p-5">
+              <div class="text-2xl font-semibold">02</div>
+              <div class="mt-2 text-sm font-semibold">Personal care</div>
+            </div>
+            <div class="rounded-3xl border border-black/8 bg-white/65 p-5">
+              <div class="text-2xl font-semibold">03</div>
+              <div class="mt-2 text-sm font-semibold">Quality results</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="bg-[#F3EFE8]">
+      <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+        <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end reveal">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-[.24em] text-gold">Services</div>
+            <h2 class="display mt-3 text-4xl sm:text-5xl">Everything for your next glow-up.</h2>
+          </div>
+          <p class="max-w-md text-sm leading-6 text-black/55">A polished service menu that makes it easy for a new client to understand what Hilopek offers.</p>
+        </div>
+
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="service-card reveal rounded-[2rem] bg-white p-7 shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-charcoal text-gold">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 4c0 3 2 4 5 4s5-1 5-4M7 20c0-3 2-4 5-4s5 1 5 4M7 4v16M17 4v16"/></svg>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold">Braids &amp; Hair Styling</h3>
+            <p class="mt-3 text-sm leading-6 text-black/55">Braids, hairstyling, blowouts, dreadlocks and creative looks tailored to you.</p>
+            <a href="#booking" class="mt-6 inline-flex text-sm font-bold text-black underline decoration-gold decoration-2 underline-offset-4">Learn More</a>
+          </article>
+
+          <article class="service-card reveal rounded-[2rem] bg-white p-7 shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-charcoal text-gold">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 10h12M8 7h8M8 13h8M10 16h4M5 5h14v14H5z"/></svg>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold">Precise Haircuts &amp; Grooming</h3>
+            <p class="mt-3 text-sm leading-6 text-black/55">Clean cuts, grooming and beard care for clients who value a sharp finish.</p>
+            <a href="#booking" class="mt-6 inline-flex text-sm font-bold text-black underline decoration-gold decoration-2 underline-offset-4">Learn More</a>
+          </article>
+
+          <article class="service-card reveal rounded-[2rem] bg-white p-7 shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-charcoal text-gold">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 3c2 3 6 5 6 10a6 6 0 0 1-12 0c0-5 4-7 6-10Z"/></svg>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold">Rejuvenating Spa Treatments</h3>
+            <p class="mt-3 text-sm leading-6 text-black/55">Body treatments and relaxing care designed to make your visit feel like a reset.</p>
+            <a href="#booking" class="mt-6 inline-flex text-sm font-bold text-black underline decoration-gold decoration-2 underline-offset-4">Learn More</a>
+          </article>
+
+          <article class="service-card reveal rounded-[2rem] bg-white p-7 shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-charcoal text-gold">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 3l1.7 5.3H19l-4.3 3.2 1.6 5.2L12 13.5 7.7 16.7l1.6-5.2L5 8.3h5.3L12 3Z"/></svg>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold">Beauty &amp; Self-Care</h3>
+            <p class="mt-3 text-sm leading-6 text-black/55">Nails, makeup, lashes, waxing and other beauty services in one destination.</p>
+            <a href="#booking" class="mt-6 inline-flex text-sm font-bold text-black underline decoration-gold decoration-2 underline-offset-4">Learn More</a>
+          </article>
+        </div>
+
+        <div class="mt-7 rounded-[2rem] border border-black/8 bg-white/55 p-6 reveal">
+          <div class="text-xs font-bold uppercase tracking-[.2em] text-black/45">Publicly listed services</div>
+          <p class="mt-3 text-sm leading-7 text-black/65">Hair Salon • Beard Trim • Blowouts • Dreadlocks • Hair Coloring • Hairstyling • Body Treatment • Makeup • Makeup Artists • Manicure &amp; Pedicure • Salon &amp; Spa • Tattoo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+      <div class="max-w-2xl reveal">
+        <div class="text-xs font-bold uppercase tracking-[.24em] text-gold">Why Hilopek</div>
+        <h2 class="display mt-3 text-4xl sm:text-5xl">The details that make a visit feel different.</h2>
+      </div>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="reveal rounded-[2rem] border border-black/8 bg-white p-7 shadow-soft">
+          <div class="text-gold">
+            <svg class="h-9 w-9" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M12 21s8-4.5 8-10V5l-8-2-8 2v6c0 5.5 8 10 8 10Z"/></svg>
+          </div>
+          <h3 class="mt-6 font-semibold">Comfort</h3>
+          <p class="mt-2 text-sm leading-6 text-black/55">A calm, welcoming environment designed around the client experience.</p>
+        </div>
+        <div class="reveal rounded-[2rem] border border-black/8 bg-white p-7 shadow-soft">
+          <div class="text-gold">
+            <svg class="h-9 w-9" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>
+          </div>
+          <h3 class="mt-6 font-semibold">Professional Care</h3>
+          <p class="mt-2 text-sm leading-6 text-black/55">Clear service choices and a client-first approach from consultation to finish.</p>
+        </div>
+        <div class="reveal rounded-[2rem] border border-black/8 bg-white p-7 shadow-soft">
+          <div class="text-gold">
+            <svg class="h-9 w-9" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M4 19 19 4M7 4h12v12"/></svg>
+          </div>
+          <h3 class="mt-6 font-semibold">Quality Service</h3>
+          <p class="mt-2 text-sm leading-6 text-black/55">A brand positioned around luxury, uniqueness and quality across its beauty offering.</p>
+        </div>
+        <div class="reveal rounded-[2rem] border border-black/8 bg-white p-7 shadow-soft">
+          <div class="text-gold">
+            <svg class="h-9 w-9" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8 12h8M12 8v8"/></svg>
+          </div>
+          <h3 class="mt-6 font-semibold">Welcoming Experience</h3>
+          <p class="mt-2 text-sm leading-6 text-black/55">A unisex destination where clients can combine beauty, grooming and self-care.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="bg-charcoal">
+      <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+        <div class="flex items-end justify-between gap-6 reveal">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-[.24em] text-gold">Gallery</div>
+            <h2 class="display mt-3 text-4xl text-white sm:text-5xl">A preview of the Hilopek experience.</h2>
+          </div>
+          <a href="#contact" class="hidden text-sm font-semibold text-white/70 hover:text-white sm:block">Visit Hilopek →</a>
+        </div>
+
+        <div class="mt-10 grid auto-rows-[220px] grid-cols-2 gap-3 sm:auto-rows-[260px] sm:gap-5 lg:grid-cols-4">
+          <div class="gallery-item col-span-2 row-span-2 overflow-hidden rounded-[2rem]">
+            <img class="gallery-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=88" alt="Salon styling station">
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem]">
+            <img class="gallery-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=88" alt="Hair styling">
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem]">
+            <img class="gallery-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=900&q=88" alt="Beauty salon interior">
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem]">
+            <img class="gallery-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=900&q=88" alt="Hair care service">
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem]">
+            <img class="gallery-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=900&q=88" alt="Nail care">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking" class="bg-gold">
+      <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+        <div class="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+          <div class="reveal">
+            <div class="text-xs font-bold uppercase tracking-[.24em] text-charcoal/60">Ready when you are</div>
+            <h2 class="display mt-3 text-4xl leading-tight text-charcoal sm:text-5xl">Your Next Beauty Experience Starts Here.</h2>
+            <p class="mt-4 max-w-2xl text-charcoal/70">Ready to book your next appointment? Get in touch with Hilopek Salon &amp; Spa.</p>
+          </div>
+          <div class="reveal flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <a href="https://wa.me/2348140361380?text=Hello%20Hilopek%20Salon%20%26%20Spa%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" class="booking-trigger rounded-full bg-charcoal px-7 py-4 text-center text-sm font-bold text-white transition hover:-translate-y-1">Book An Appointment</a>
+            <a href="tel:+2348140361380" class="rounded-full border border-charcoal/20 px-7 py-4 text-center text-sm font-bold text-charcoal transition hover:bg-white/20">Call +234 814 036 1380</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+      <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="reveal">
+          <div class="text-xs font-bold uppercase tracking-[.24em] text-gold">Location &amp; Contact</div>
+          <h2 class="display mt-3 text-4xl sm:text-5xl">Find Hilopek in Uyo.</h2>
+          <p class="mt-5 leading-7 text-black/60">Conveniently located on Aka Etinan Road, before Mbierebe Junction.</p>
+
+          <div class="mt-8 space-y-5">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Hilopek%20Salon%20and%20Spa%2C%20171%20Aka%20Etinan%20Rd%2C%20Uyo%2C%20Akwa%20Ibom%2C%20Nigeria&destination_place_id=ChIJ5b_n4xb9ZxARmP-nmfHjdX0" target="_blank" rel="noopener" class="flex gap-4 rounded-3xl border border-black/8 bg-white p-5 shadow-soft transition hover:-translate-y-1">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-charcoal text-gold">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>
+              </span>
+              <span><span class="block text-xs font-bold uppercase tracking-wider text-black/40">Address</span><span class="mt-1 block text-sm leading-6">171 Aka Etinan Road, before Mbierebe Junction, Uyo, Akwa Ibom, Nigeria</span></span>
+            </a>
+
+            <a href="tel:+2348140361380" class="flex gap-4 rounded-3xl border border-black/8 bg-white p-5 shadow-soft transition hover:-translate-y-1">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-charcoal text-gold">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M5 4h3l2 5-2 2c1.4 2.8 3.2 4.6 6 6l2-2 5 2v3c0 1-1 1-2 1C10.4 21 3 13.6 3 5c0-1 .9-1 2-1Z"/></svg>
+              </span>
+              <span><span class="block text-xs font-bold uppercase tracking-wider text-black/40">Phone</span><span class="mt-1 block text-sm">+234 814 036 1380</span></span>
+            </a>
+
+            <a href="https://wa.me/2348140361380?text=Hello%20Hilopek%20Salon%20%26%20Spa%2C%20I%27d%20like%20to%20make%20an%20enquiry." target="_blank" rel="noopener" class="flex gap-4 rounded-3xl border border-black/8 bg-white p-5 shadow-soft transition hover:-translate-y-1">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#25D366] text-white">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 3.9A10 10 0 0 0 3.5 16.1L2 22l6-1.6A10 10 0 0 0 20 3.9Zm-8 16.3a8.3 8.3 0 0 1-4.2-1.1l-.3-.2-3.5.9.9-3.4-.2-.3A8.3 8.3 0 1 1 12 20.2Zm4.6-6.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.6-1.4-3.6-3.1-.3-.5.3-.5.8-1.6.1-.2 0-.4-.1-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"/></svg>
+              </span>
+              <span><span class="block text-xs font-bold uppercase tracking-wider text-black/40">WhatsApp</span><span class="mt-1 block text-sm">Chat directly with Hilopek</span></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal overflow-hidden rounded-[2.5rem] bg-[#E9E3D8] p-3 shadow-soft">
+          <div class="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-charcoal">
+            <iframe
+              title="Hilopek Salon & Spa map"
+              class="absolute inset-0 h-full w-full border-0 opacity-90"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Hilopek%20Salon%20and%20Spa%2C%20171%20Aka%20Etinan%20Rd%2C%20Uyo%2C%20Akwa%20Ibom%2C%20Nigeria&output=embed">
+            </iframe>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Hilopek%20Salon%20and%20Spa%2C%20171%20Aka%20Etinan%20Rd%2C%20Uyo%2C%20Akwa%20Ibom%2C%20Nigeria&destination_place_id=ChIJ5b_n4xb9ZxARmP-nmfHjdX0" target="_blank" rel="noopener" class="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/95 px-5 py-4 text-center text-sm font-bold shadow-xl backdrop-blur transition hover:bg-white">Open Exact Location in Google Maps →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-3xl border border-black/8 bg-white p-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-black/40">Opening Hours</div>
+          <div class="mt-3 text-lg font-semibold">Mon–Sat · 7:30am–8pm</div>
+          <div class="mt-1 text-sm text-black/55">Sun · 7:30am–8pm</div>
+        </div>
+        <div class="rounded-3xl border border-black/8 bg-white p-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-black/40">Appointments</div>
+          <div class="mt-3 text-lg font-semibold">Recommended</div>
+          <div class="mt-1 text-sm text-black/55">Book ahead via WhatsApp</div>
+        </div>
+        <div class="rounded-3xl border border-black/8 bg-white p-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-black/40">Payments</div>
+          <div class="mt-3 text-lg font-semibold">Card &amp; Mobile</div>
+          <div class="mt-1 text-sm text-black/55">Public listing indicates card/NFC support</div>
+        </div>
+        <div class="rounded-3xl border border-black/8 bg-white p-6">
+          <div class="text-xs font-bold uppercase tracking-wider text-black/40">Social</div>
+          <div class="mt-3 text-lg font-semibold">@hilopeksalon</div>
+          <a href="https://linktr.ee/hilopeksalon" target="_blank" rel="noopener" class="mt-1 text-sm font-semibold underline decoration-gold underline-offset-4">Instagram · TikTok · Facebook · X</a>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- Booking modal -->
+  <div id="bookingModal" class="fixed inset-0 z-[100] items-center justify-center bg-black/65 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <div id="bookingPanel" class="modal-panel relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-[2rem] bg-[#FAF7F2] p-6 shadow-2xl sm:p-8">
+      <button id="closeBooking" type="button" aria-label="Close booking form" class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-black/5 text-xl text-charcoal transition hover:bg-black/10">&times;</button>
+
+      <div class="pr-12">
+        <div class="text-xs font-bold uppercase tracking-[.22em] text-[#A78416]">Hilopek Salon &amp; Spa</div>
+        <h2 id="bookingTitle" class="mt-2 font-display text-3xl font-semibold text-charcoal sm:text-4xl">Book your appointment.</h2>
+        <p class="mt-2 text-sm leading-6 text-black/55">Tell us what you need and your preferred time. We'll send the details directly to Hilopek on WhatsApp.</p>
+      </div>
+
+      <form id="bookingForm" class="mt-7 space-y-4">
+        <div>
+          <label for="bookingName" class="mb-2 block text-sm font-semibold text-charcoal">Full name</label>
+          <input id="bookingName" name="name" required autocomplete="name" class="w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" placeholder="Your name">
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="bookingPhone" class="mb-2 block text-sm font-semibold text-charcoal">Phone / WhatsApp</label>
+            <input id="bookingPhone" name="phone" required type="tel" autocomplete="tel" class="w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" placeholder="080...">
+          </div>
+          <div>
+            <label for="bookingService" class="mb-2 block text-sm font-semibold text-charcoal">Service</label>
+            <select id="bookingService" name="service" required class="w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
+              <option value="">Select a service</option>
+              <option>Braids &amp; Hair Styling</option>
+              <option>Haircut / Grooming</option>
+              <option>Dreadlocks</option>
+              <option>Hair Colouring</option>
+              <option>Blowout</option>
+              <option>Makeup</option>
+              <option>Manicure &amp; Pedicure</option>
+              <option>Spa / Body Treatment</option>
+              <option>Tattoo</option>
+              <option>Other / Not sure</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="bookingDate" class="mb-2 block text-sm font-semibold text-charcoal">Preferred date</label>
+            <input id="bookingDate" name="date" required type="date" class="w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
+          </div>
+          <div>
+            <label for="bookingTime" class="mb-2 block text-sm font-semibold text-charcoal">Preferred time</label>
+            <select id="bookingTime" name="time" required class="w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
+              <option value="">Choose a time</option>
+              <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+              <option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="bookingNotes" class="mb-2 block text-sm font-semibold text-charcoal">Anything else? <span class="font-normal text-black/40">(optional)</span></label>
+          <textarea id="bookingNotes" name="notes" rows="3" class="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" placeholder="E.g. hair length, preferred stylist, special request..."></textarea>
+        </div>
+
+        <button type="submit" class="flex w-full items-center justify-center gap-3 rounded-2xl bg-charcoal px-5 py-4 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-black">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.84 11.84 0 0 0 12.06 0C5.52 0 .2 5.32.2 11.86c0 2.09.55 4.13 1.59 5.93L.1 24l6.35-1.66a11.86 11.86 0 0 0 5.61 1.43h.01c6.53 0 11.84-5.32 11.84-11.86 0-3.17-1.23-6.14-3.39-8.43ZM12.07 21.7h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.21-3.77.99 1.01-3.67-.23-.38a9.82 9.82 0 0 1-1.51-5.2C2.18 6.43 6.61 2 12.06 2c2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.9 7c0 5.44-4.43 9.87-9.88 9.87Zm5.42-7.4c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.08 1.78-.73 2.03-1.43.25-.7.25-1.3.17-1.43-.07-.13-.27-.2-.57-.35Z"/></svg>
+          Send Booking Request on WhatsApp
+        </button>
+        <p class="text-center text-xs leading-5 text-black/40">WhatsApp will open with your booking details ready to send. Hilopek can then confirm availability.</p>
+      </form>
+    </div>
+  </div>
+
+  </main>
+
+  <footer class="bg-charcoal text-white">
+    <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+      <div class="grid gap-10 md:grid-cols-[1.3fr_.7fr_.7fr]">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="logo-mark flex h-12 w-12 items-center justify-center overflow-hidden">
+              <img src="data:image/jpeg;base64,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" alt="Hilopek black and gold emblem" class="h-full w-full object-cover">
+            </span>
+            <div>
+              <div class="font-semibold">Hilopek Salon &amp; Spa</div>
+              <div class="text-xs text-white/45">Luxury · Unique · Quality</div>
+            </div>
+          </div>
+          <p class="mt-5 max-w-md text-sm leading-6 text-white/55">A unisex salon and spa in Uyo for hair, grooming, beauty, self-care and memorable client experiences.</p>
+        </div>
+
+        <div>
+          <div class="text-xs font-bold uppercase tracking-[.2em] text-gold">Explore</div>
+          <div class="mt-4 flex flex-col gap-3 text-sm text-white/65">
+            <a href="#about" class="hover:text-white">About</a>
+            <a href="#services" class="hover:text-white">Services</a>
+            <a href="#gallery" class="hover:text-white">Gallery</a>
+            <a href="#contact" class="hover:text-white">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-bold uppercase tracking-[.2em] text-gold">Connect</div>
+          <div class="mt-4 flex flex-col gap-3 text-sm text-white/65">
+            <a href="tel:+2348140361380" class="hover:text-white">Call Hilopek</a>
+            <a href="https://wa.me/2348140361380" target="_blank" rel="noopener" class="hover:text-white">WhatsApp</a>
+            <a href="https://linktr.ee/hilopeksalon" target="_blank" rel="noopener" class="hover:text-white">Social Profiles</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
+        <span>© <span id="year"></span> Hilopek Salon &amp; Spa. All rights reserved.</span>
+        <span>171 Aka Etinan Road · Uyo, Akwa Ibom, Nigeria</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenu = document.getElementById('closeMenu');
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    menuBtn.addEventListener('click', openDrawer);
+    closeMenu.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          closeDrawer();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Premium booking flow: collect details, then hand the request to WhatsApp.
+    const bookingModal = document.getElementById('bookingModal');
+    const closeBooking = document.getElementById('closeBooking');
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingDate = document.getElementById('bookingDate');
+    const bookingName = document.getElementById('bookingName');
+
+    // Prevent customers from selecting a date in the past.
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    bookingDate.min = `${yyyy}-${mm}-${dd}`;
+
+    function openBookingModal() {
+      bookingModal.classList.add('open');
+      document.body.classList.add('overflow-hidden');
+      setTimeout(() => bookingName.focus(), 80);
+    }
+
+    function closeBookingModal() {
+      bookingModal.classList.remove('open');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.querySelectorAll('.booking-trigger').forEach(trigger => {
+      trigger.addEventListener('click', e => {
+        e.preventDefault();
+        closeDrawer();
+        openBookingModal();
+      });
+    });
+
+    closeBooking.addEventListener('click', closeBookingModal);
+    bookingModal.addEventListener('click', e => {
+      if (e.target === bookingModal) closeBookingModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && bookingModal.classList.contains('open')) closeBookingModal();
+    });
+
+    bookingForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const form = new FormData(bookingForm);
+      const name = form.get('name').trim();
+      const phone = form.get('phone').trim();
+      const service = form.get('service');
+      const dateRaw = form.get('date');
+      const time = form.get('time');
+      const notes = form.get('notes').trim();
+
+      const formattedDate = new Date(`${dateRaw}T12:00:00`).toLocaleDateString('en-NG', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+
+      let message = `Hello Hilopek Salon & Spa!\n\nI'd like to request an appointment.\n\n*Name:* ${name}\n*Phone/WhatsApp:* ${phone}\n*Service:* ${service}\n*Preferred date:* ${formattedDate}\n*Preferred time:* ${time}`;
+      if (notes) message += `\n*Additional notes:* ${notes}`;
+      message += `\n\nPlease let me know if this time is available. Thank you!`;
+
+      const whatsappUrl = `https://wa.me/2348140361380?text=${encodeURIComponent(message)}`;
+      closeBookingModal();
+      window.open(whatsappUrl, '_blank', 'noopener');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
